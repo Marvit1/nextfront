@@ -192,7 +192,7 @@ export default function Home() {
                     onClick={() => handleLinkClick(article.id)}
                     className="block"
                   >
-                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] ${isVisited ? 'text-gray-700 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
+                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] cursor-pointer ${isVisited ? 'text-gray-700 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
                       {article.title}
                     </h2>
                   </Link>
@@ -233,7 +233,7 @@ export default function Home() {
                         <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        <span className="whitespace-nowrap">Read Original</span>
+                        <span className="whitespace-nowrap text-blue-600 font-semibold">Read Original</span>
                     </a>
                     <button 
                         onClick={(e) => handleCopy(e, article.link, article.id)}
