@@ -119,10 +119,18 @@ export default function Home() {
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="flex items-center justify-center py-12">
+        <div className="flex items-center justify-center py-16 sm:py-24">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-500 dark:text-gray-400 animate-pulse">Loading articles...</p>
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mx-auto mb-6"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-600 animate-spin" style={{animationDuration: '1.5s'}}></div>
+            </div>
+            <p className="text-gray-500 dark:text-gray-400 animate-pulse text-lg">Loading latest articles...</p>
+            <div className="mt-4 flex justify-center gap-1">
+              <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+              <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+            </div>
           </div>
         </div>
       );
@@ -130,114 +138,225 @@ export default function Home() {
 
     if (error) {
       return (
-        <div className="text-center text-red-700 bg-red-50 p-4 sm:p-6 md:p-8 rounded-lg border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800/50 mx-4 sm:mx-0">
-          <h2 className="text-lg sm:text-xl font-semibold">Could not fetch news</h2>
-          <p className="mt-2 text-sm">{error}</p>
+        <div className="text-center mx-4 sm:mx-0">
+          <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-8 sm:p-12 rounded-2xl border border-red-200 dark:border-red-800/50 shadow-lg">
+            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-red-800 dark:text-red-200 mb-3">Could not fetch news</h2>
+            <p className="text-red-600 dark:text-red-300 text-lg">{error}</p>
+            <button 
+              onClick={() => fetchArticles(1)}
+              className="mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       );
     }
     
     if (articles.length > 0) {
       return (
-        <ul className="space-y-4 sm:space-y-6">
+        <div className="grid gap-6 sm:gap-8">
           {articles.map((article) => {
             const isVisited = visited.has(article.id);
             return (
-              <li key={article.id} className={`${isVisited ? 'bg-indigo-50 dark:bg-indigo-900/20' : 'bg-white dark:bg-gray-800/50'} border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-lg dark:hover:shadow-indigo-900/20 transition-all duration-300 ease-in-out transform hover:-translate-y-1 mx-4 sm:mx-0`}>
-                <div className="p-4 sm:p-5 md:p-6">
+              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20' : 'bg-white dark:bg-gray-800/50'} border border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2 mx-4 sm:mx-0`}>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative p-6 sm:p-8">
+                  {/* Status indicator */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2 h-2 rounded-full ${isVisited ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
+                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                        {isVisited ? 'Read' : 'New'}
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-400 dark:text-gray-500">
+                      {new Date(article.created_at).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </div>
+                  </div>
+
                   <Link 
                     href={`/articles/${article.id}`}
                     onClick={() => handleLinkClick(article.id)}
-                    className={`group block`}
+                    className="block"
                   >
-                    <h2 className={`text-base sm:text-lg md:text-xl font-bold transition-colors leading-tight ${isVisited ? 'text-indigo-700 dark:text-indigo-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
+                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] ${isVisited ? 'text-indigo-700 dark:text-indigo-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
                       {article.title}
                     </h2>
                   </Link>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-x-3">
-                    <span>Published: {new Date(article.created_at).toLocaleString()}</span>
-                    {article.source_url && (
-                        <>
-                            <span className="hidden sm:inline text-gray-300 dark:text-gray-600">|</span>
-                            <span>Source: <span className="font-medium text-gray-700 dark:text-gray-300 break-all">{article.source_url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '')}</span></span>
-                        </>
-                    )}
-                  </div>
+
+                  {article.source_url && (
+                    <div className="flex items-center gap-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      <span className="font-medium truncate">{article.source_url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '')}</span>
+                    </div>
+                  )}
 
                   {article.matched_keywords && article.matched_keywords.length > 0 && (
-                    <div className="mt-3 flex flex-wrap gap-1 sm:gap-2">
+                    <div className="flex flex-wrap gap-2 mb-6">
                         {article.matched_keywords.map(kw => (
-                            <span key={kw} className="px-2 py-0.5 text-xs font-medium text-purple-800 bg-purple-100 rounded-full dark:bg-purple-900 dark:text-purple-200">
-                                {kw}
+                            <span key={kw} className="px-3 py-1 text-xs font-semibold text-purple-700 bg-purple-100 dark:bg-purple-900/50 dark:text-purple-200 rounded-full border border-purple-200 dark:border-purple-800">
+                                #{kw}
                             </span>
                         ))}
                     </div>
                   )}
                 </div>
 
-                {/* --- Action Buttons --- */}
-                <div className={`${isVisited ? 'bg-indigo-100 dark:bg-indigo-900/30' : 'bg-gray-50 dark:bg-gray-800'} px-4 sm:px-5 md:px-6 py-3 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4`}>
+                {/* Action Buttons */}
+                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-indigo-100 to-blue-100 dark:from-indigo-900/30 dark:to-blue-900/30' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700'} px-6 sm:px-8 py-4 border-t border-gray-200 dark:border-gray-700`}>
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors w-full sm:w-auto text-center sm:text-left"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                     >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
                         Read Original
                     </a>
                     <button 
                         onClick={(e) => handleCopy(e, article.link, article.id)}
-                        className={`text-sm font-medium px-3 py-2 rounded-md transition-all w-full sm:w-auto ${copySuccessId === article.id ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
+                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+                          copySuccessId === article.id 
+                            ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg' 
+                            : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600'
+                        }`}
                     >
-                        {copySuccessId === article.id ? 'Copied!' : 'Copy Link'}
+                        {copySuccessId === article.id ? (
+                          <>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Copied!
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            Copy Link
+                          </>
+                        )}
                     </button>
+                  </div>
                 </div>
-              </li>
+              </article>
             );
           })}
-        </ul>
+        </div>
       );
     }
 
     return (
-      <div className="text-center text-gray-500 bg-white p-6 sm:p-8 rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 mx-4 sm:mx-0">
-        <h2 className="text-lg sm:text-xl font-semibold">No News Available</h2>
-        <p className="mt-2 text-sm">Waiting for the script to find relevant articles...</p>
+      <div className="text-center mx-4 sm:mx-0">
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 p-12 sm:p-16 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
+          <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-10 h-10 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-4">No News Available</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-lg mb-6">Waiting for the script to find relevant articles...</p>
+          <div className="flex justify-center gap-2">
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+            <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+          </div>
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 sm:mb-8 text-center tracking-tight">
-        Latest News
-      </h1>
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section */}
+      <div className="text-center mb-12 sm:mb-16">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          Live Updates
+        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent dark:from-white dark:via-blue-200 dark:to-purple-200 mb-4 tracking-tight">
+          Latest News
+        </h1>
+        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Stay informed with real-time news updates and intelligent keyword filtering
+        </p>
+      </div>
       
       <div>
         {renderContent()}
       </div>
 
-      {/* --- Pagination Controls --- */}
+      {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 px-4 sm:px-0">
-            <button 
-                onClick={() => fetchArticles(currentPage - 1)}
-                disabled={currentPage <= 1 || isLoading}
-                className="w-full sm:w-auto px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 dark:disabled:bg-gray-800 transition-colors"
-            >
-                Previous
-            </button>
-            <span className="text-sm text-gray-600 dark:text-gray-400 order-first sm:order-none">
-                Page {currentPage} of {totalPages}
-            </span>
-            <button 
-                onClick={() => fetchArticles(currentPage + 1)}
-                disabled={currentPage >= totalPages || isLoading}
-                className="w-full sm:w-auto px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 dark:disabled:bg-gray-800 transition-colors"
-            >
-                Next
-            </button>
+        <div className="mt-12 sm:mt-16">
+          <div className="bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 shadow-lg">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-0">
+              <button 
+                  onClick={() => fetchArticles(currentPage - 1)}
+                  disabled={currentPage <= 1 || isLoading}
+                  className="group flex items-center gap-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl px-6 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                  <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Previous
+              </button>
+              
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <div className="flex gap-1">
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => fetchArticles(pageNum)}
+                        className={`w-8 h-8 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          pageNum === currentPage
+                            ? 'bg-blue-600 text-white shadow-lg'
+                            : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              
+              <button 
+                  onClick={() => fetchArticles(currentPage + 1)}
+                  disabled={currentPage >= totalPages || isLoading}
+                  className="group flex items-center gap-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl px-6 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                  Next
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
