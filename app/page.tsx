@@ -168,7 +168,7 @@ export default function Home() {
             const isVisited = visited.has(article.id);
             console.log(`Article ${article.id} isVisited:`, isVisited, 'visited set:', Array.from(visited));
             return (
-              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? '!bg-gray-400 dark:!bg-gray-700 !border-gray-600 dark:!border-gray-500' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
+              <article key={article.id} style={{backgroundColor: isVisited ? '#9CA3AF' : 'white'}} className={`group relative overflow-hidden ${isVisited ? '!border-gray-600 dark:!border-gray-500' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -222,7 +222,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`relative ${isVisited ? '!bg-gray-500 dark:!bg-gray-700 !border-gray-600 dark:!border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
+                <div style={{backgroundColor: isVisited ? '#6B7280' : 'transparent'}} className={`relative ${isVisited ? '!border-gray-600 dark:!border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
