@@ -160,23 +160,23 @@ export default function Home() {
     
     if (articles.length > 0) {
       return (
-        <div className="grid gap-6 sm:gap-8">
+        <div className="grid gap-6 sm:gap-8 max-w-3xl mx-auto">
           {articles.map((article) => {
             const isVisited = visited.has(article.id);
             return (
-              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20' : 'bg-white dark:bg-gray-800/50'} border border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2 mx-4 sm:mx-0`}>
+              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-700' : 'bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2 mx-4 sm:mx-0`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative p-6 sm:p-8">
                   {/* Status indicator */}
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${isVisited ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
-                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                        {isVisited ? 'Read' : 'New'}
-                      </span>
-                    </div>
+                                  <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${isVisited ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
+                <span className={`text-xs font-medium uppercase tracking-wide ${isVisited ? 'text-green-600 dark:text-green-400' : 'text-blue-600 dark:text-blue-400'}`}>
+                  {isVisited ? 'Read' : 'New'}
+                </span>
+              </div>
                     <div className="text-xs text-gray-400 dark:text-gray-500">
                       {new Date(article.created_at).toLocaleDateString('en-US', { 
                         month: 'short', 
@@ -192,7 +192,7 @@ export default function Home() {
                     onClick={() => handleLinkClick(article.id)}
                     className="block"
                   >
-                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] ${isVisited ? 'text-indigo-700 dark:text-indigo-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
+                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] ${isVisited ? 'text-green-700 dark:text-green-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
                       {article.title}
                     </h2>
                   </Link>
@@ -218,13 +218,16 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-indigo-100 to-blue-100 dark:from-indigo-900/30 dark:to-blue-900/30' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700'} px-6 sm:px-8 py-4 border-t border-gray-200 dark:border-gray-700`}>
+                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 border-green-200 dark:border-green-700' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border-gray-200 dark:border-gray-700'} px-6 sm:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLinkClick(article.id);
+                        }}
                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -286,7 +289,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Hero Section */}
       <div className="text-center mb-12 sm:mb-16">
         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
