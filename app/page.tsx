@@ -232,16 +232,16 @@ export default function Home() {
                           e.stopPropagation();
                           handleLinkClick(article.id);
                         }}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-purple-600 hover:from-blue-700 hover:via-blue-600 hover:to-purple-700 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base border border-blue-500/20"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-purple-600 hover:from-blue-700 hover:via-blue-600 hover:to-purple-700 text-white px-4 sm:px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base border border-blue-500/20"
                     >
                         <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        <span className="whitespace-nowrap text-white font-semibold">Read Original</span>
+                        <span className="whitespace-nowrap text-black font-semibold">Read Original</span>
                     </a>
                     <button 
                         onClick={(e) => handleCopy(e, article.link, article.id)}
-                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base shadow-md hover:shadow-lg ${
+                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base shadow-md hover:shadow-lg ${
                           copySuccessId === article.id 
                             ? 'bg-gradient-to-r from-green-500 via-green-400 to-emerald-500 text-white shadow-lg border border-green-400/20' 
                             : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-300 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-600 dark:hover:to-gray-500 border border-gray-300 dark:border-gray-600'
