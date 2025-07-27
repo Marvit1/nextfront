@@ -139,7 +139,7 @@ export default function Home() {
     if (error) {
       return (
         <div className="text-center mx-4 sm:mx-0">
-          <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-8 sm:p-12 rounded-2xl border border-red-200 dark:border-red-800/50 shadow-lg">
+          <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-6 sm:p-8 md:p-12 rounded-2xl border border-red-200 dark:border-red-800/50 shadow-lg">
             <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
@@ -160,22 +160,22 @@ export default function Home() {
     
     if (articles.length > 0) {
       return (
-        <div className="grid gap-6 sm:gap-8 max-w-3xl mx-auto">
+                            <div className="grid gap-4 sm:gap-6 md:gap-8 max-w-2xl mx-auto">
           {articles.map((article) => {
             const isVisited = visited.has(article.id);
             return (
-              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-700' : 'bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2 mx-4 sm:mx-0`}>
+              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-green-200 to-emerald-200 dark:from-green-700/40 dark:to-emerald-700/40 border-green-400 dark:border-green-500 hover:from-green-300 hover:to-emerald-300 dark:hover:from-green-600/50 dark:hover:to-emerald-600/50' : 'bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative p-6 sm:p-8">
+                <div className="relative p-4 sm:p-6 md:p-8">
                   {/* Status indicator */}
                   <div className="flex items-center justify-between mb-4">
                                   <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${isVisited ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
-                <span className={`text-xs font-medium uppercase tracking-wide ${isVisited ? 'text-green-600 dark:text-green-400' : 'text-blue-600 dark:text-blue-400'}`}>
-                  {isVisited ? 'Read' : 'New'}
-                </span>
+                                                <span className={`text-xs font-medium uppercase tracking-wide ${isVisited ? 'text-green-700 dark:text-green-300' : 'text-blue-600 dark:text-blue-400'}`}>
+                                  {isVisited ? 'Read' : 'New'}
+                                </span>
               </div>
                     <div className="text-xs text-gray-400 dark:text-gray-500">
                       {new Date(article.created_at).toLocaleDateString('en-US', { 
@@ -218,7 +218,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 border-green-200 dark:border-green-700' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border-gray-200 dark:border-gray-700'} px-6 sm:px-8 py-4 border-t`}>
+                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-green-300 to-emerald-300 dark:from-green-700/50 dark:to-emerald-700/50 border-green-400 dark:border-green-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
@@ -228,16 +228,16 @@ export default function Home() {
                           e.stopPropagation();
                           handleLinkClick(article.id);
                         }}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
                     >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        Read Original
+                        <span className="whitespace-nowrap">Read Original</span>
                     </a>
                     <button 
                         onClick={(e) => handleCopy(e, article.link, article.id)}
-                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base ${
                           copySuccessId === article.id 
                             ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg' 
                             : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600'
@@ -245,17 +245,17 @@ export default function Home() {
                     >
                         {copySuccessId === article.id ? (
                           <>
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            Copied!
+                            <span className="whitespace-nowrap">Copied!</span>
                           </>
                         ) : (
                           <>
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                             </svg>
-                            Copy Link
+                            <span className="whitespace-nowrap">Copy Link</span>
                           </>
                         )}
                     </button>
@@ -269,8 +269,8 @@ export default function Home() {
     }
 
     return (
-      <div className="text-center mx-4 sm:mx-0">
-        <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 p-12 sm:p-16 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
+      <div className="text-center mx-2 sm:mx-0">
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 p-8 sm:p-12 md:p-16 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
           <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-10 h-10 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
@@ -288,8 +288,8 @@ export default function Home() {
     );
   };
 
-  return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                return (
+                <div className="w-full max-w-3xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
       {/* Hero Section */}
       <div className="text-center mb-12 sm:mb-16">
         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
