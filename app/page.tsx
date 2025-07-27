@@ -98,8 +98,11 @@ export default function Home() {
   }, [currentPage, error]); // Rerun polling setup if currentPage changes
 
   const handleLinkClick = (articleId: number) => {
+    console.log('handleLinkClick called with articleId:', articleId);
+    console.log('Current visited set:', Array.from(visited));
     const newVisited = new Set(visited);
     newVisited.add(articleId);
+    console.log('New visited set:', Array.from(newVisited));
     setVisited(newVisited);
     localStorage.setItem(VISITED_ARTICLES_KEY, JSON.stringify(Array.from(newVisited)));
   };
@@ -163,8 +166,9 @@ export default function Home() {
                             <div className="grid gap-4 sm:gap-6 md:gap-8 max-w-3xl mx-auto">
           {articles.map((article) => {
             const isVisited = visited.has(article.id);
+            console.log(`Article ${article.id} isVisited:`, isVisited, 'visited set:', Array.from(visited));
             return (
-              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-gray-400 to-gray-500 dark:from-gray-600/70 dark:to-gray-700/70 border-gray-600 dark:border-gray-500 hover:from-gray-500 hover:to-gray-600 dark:hover:from-gray-500/80 dark:hover:to-gray-600/80' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
+              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? '!bg-gray-400 dark:!bg-gray-700 !border-gray-600 dark:!border-gray-500' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -218,7 +222,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600/80 dark:to-gray-700/80 border-gray-600 dark:border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
+                <div className={`relative ${isVisited ? '!bg-gray-500 dark:!bg-gray-700 !border-gray-600 dark:!border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
