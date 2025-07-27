@@ -164,7 +164,7 @@ export default function Home() {
           {articles.map((article) => {
             const isVisited = visited.has(article.id);
             return (
-              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-700/50 dark:to-gray-800/50 border-gray-500 dark:border-gray-600 hover:from-gray-400 hover:to-gray-500 dark:hover:from-gray-600/60 dark:hover:to-gray-700/60' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
+              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-gray-400 to-gray-500 dark:from-gray-600/70 dark:to-gray-700/70 border-gray-600 dark:border-gray-500 hover:from-gray-500 hover:to-gray-600 dark:hover:from-gray-500/80 dark:hover:to-gray-600/80' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -218,7 +218,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-gray-400 to-gray-500 dark:from-gray-700/60 dark:to-gray-800/60 border-gray-500 dark:border-gray-600' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
+                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600/80 dark:to-gray-700/80 border-gray-600 dark:border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
