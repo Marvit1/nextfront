@@ -168,7 +168,7 @@ export default function Home() {
             const isVisited = visited.has(article.id);
             console.log(`Article ${article.id} isVisited:`, isVisited, 'visited set:', Array.from(visited));
             return (
-              <article key={article.id} style={{backgroundColor: isVisited ? '#9CA3AF' : 'white'}} className={`group relative overflow-hidden ${isVisited ? '!border-gray-600 dark:!border-gray-500' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
+              <article key={article.id} style={{backgroundColor: isVisited ? '#E5E7EB' : 'white'}} className={`group relative overflow-hidden ${isVisited ? '!border-gray-600 dark:!border-gray-500' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -222,7 +222,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div style={{backgroundColor: isVisited ? '#6B7280' : 'transparent'}} className={`relative ${isVisited ? '!border-gray-600 dark:!border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
+                <div style={{backgroundColor: isVisited ? '#F3F4F6' : 'transparent'}} className={`relative ${isVisited ? '!border-gray-600 dark:!border-gray-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
@@ -232,19 +232,19 @@ export default function Home() {
                           e.stopPropagation();
                           handleLinkClick(article.id);
                         }}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-500 to-purple-600 hover:from-blue-700 hover:via-blue-600 hover:to-purple-700 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base border border-blue-500/20"
                     >
                         <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        <span className="whitespace-nowrap text-blue-600 font-semibold">Read Original</span>
+                        <span className="whitespace-nowrap text-white font-semibold">Read Original</span>
                     </a>
                     <button 
                         onClick={(e) => handleCopy(e, article.link, article.id)}
-                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base ${
+                        className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base shadow-md hover:shadow-lg ${
                           copySuccessId === article.id 
-                            ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg' 
-                            : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600'
+                            ? 'bg-gradient-to-r from-green-500 via-green-400 to-emerald-500 text-white shadow-lg border border-green-400/20' 
+                            : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-300 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-600 dark:hover:to-gray-500 border border-gray-300 dark:border-gray-600'
                         }`}
                     >
                         {copySuccessId === article.id ? (
