@@ -160,11 +160,11 @@ export default function Home() {
     
     if (articles.length > 0) {
       return (
-                            <div className="grid gap-4 sm:gap-6 md:gap-8 max-w-2xl mx-auto">
+                            <div className="grid gap-4 sm:gap-6 md:gap-8 max-w-3xl mx-auto">
           {articles.map((article) => {
             const isVisited = visited.has(article.id);
             return (
-              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-green-200 to-emerald-200 dark:from-green-700/40 dark:to-emerald-700/40 border-green-400 dark:border-green-500 hover:from-green-300 hover:to-emerald-300 dark:hover:from-green-600/50 dark:hover:to-emerald-600/50' : 'bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
+              <article key={article.id} className={`group relative overflow-hidden ${isVisited ? 'bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-700/50 dark:to-gray-800/50 border-gray-500 dark:border-gray-600 hover:from-gray-400 hover:to-gray-500 dark:hover:from-gray-600/60 dark:hover:to-gray-700/60' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'} border rounded-2xl shadow-lg hover:shadow-2xl dark:hover:shadow-indigo-900/20 transition-all duration-500 ease-out transform hover:-translate-y-2`}>
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -172,12 +172,12 @@ export default function Home() {
                   {/* Status indicator */}
                   <div className="flex items-center justify-between mb-4">
                                   <div className="flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full ${isVisited ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
-                                                <span className={`text-xs font-medium uppercase tracking-wide ${isVisited ? 'text-green-700 dark:text-green-300' : 'text-blue-600 dark:text-blue-400'}`}>
+                                  <div className={`w-2 h-2 rounded-full ${isVisited ? 'bg-gray-600' : 'bg-blue-500'} animate-pulse`}></div>
+                                                <span className={`text-xs font-medium uppercase tracking-wide ${isVisited ? 'text-gray-700 dark:text-gray-300' : 'text-blue-600 dark:text-blue-400'}`}>
                                   {isVisited ? 'Read' : 'New'}
                                 </span>
               </div>
-                    <div className="text-xs text-gray-400 dark:text-gray-500">
+                                                    <div className={`text-xs ${isVisited ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-500'}`}>
                       {new Date(article.created_at).toLocaleDateString('en-US', { 
                         month: 'short', 
                         day: 'numeric',
@@ -192,13 +192,13 @@ export default function Home() {
                     onClick={() => handleLinkClick(article.id)}
                     className="block"
                   >
-                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] ${isVisited ? 'text-green-700 dark:text-green-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
+                    <h2 className={`text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 leading-tight mb-4 group-hover:scale-[1.02] ${isVisited ? 'text-gray-700 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
                       {article.title}
                     </h2>
                   </Link>
 
                   {article.source_url && (
-                    <div className="flex items-center gap-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
+                    <div className={`flex items-center gap-2 mb-4 text-sm ${isVisited ? 'text-gray-600 dark:text-gray-400' : 'text-gray-600 dark:text-gray-400'}`}>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                       </svg>
@@ -209,7 +209,7 @@ export default function Home() {
                   {article.matched_keywords && article.matched_keywords.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-6">
                         {article.matched_keywords.map(kw => (
-                            <span key={kw} className="px-3 py-1 text-xs font-semibold text-purple-700 bg-purple-100 dark:bg-purple-900/50 dark:text-purple-200 rounded-full border border-purple-200 dark:border-purple-800">
+                            <span key={kw} className={`px-3 py-1 text-xs font-semibold rounded-full border ${isVisited ? 'text-gray-700 bg-gray-100 dark:bg-gray-800/50 dark:text-gray-200 border-gray-300 dark:border-gray-700' : 'text-purple-700 bg-purple-100 dark:bg-purple-900/50 dark:text-purple-200 border-purple-200 dark:border-purple-800'}`}>
                                 #{kw}
                             </span>
                         ))}
@@ -218,7 +218,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-green-300 to-emerald-300 dark:from-green-700/50 dark:to-emerald-700/50 border-green-400 dark:border-green-500' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
+                <div className={`relative ${isVisited ? 'bg-gradient-to-r from-gray-400 to-gray-500 dark:from-gray-700/60 dark:to-gray-800/60 border-gray-500 dark:border-gray-600' : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-gray-200 dark:border-gray-700'} px-4 sm:px-6 md:px-8 py-4 border-t`}>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a 
                         href={article.link} 
@@ -289,7 +289,7 @@ export default function Home() {
   };
 
                 return (
-                <div className="w-full max-w-3xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+                <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Hero Section */}
       <div className="text-center mb-12 sm:mb-16">
         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
